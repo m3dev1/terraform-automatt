@@ -10,20 +10,21 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-2"
+  region = var.region
 }
 
 resource "aws_s3_bucket" "automatt-tf" {
-  bucket = "automatt-tf"
+  bucket = var.bucket_name
 
   tags = {
-    Name        = "AutoMatt Terraform"
-    Environment = "Dev"
+    Name        = "automatt-tf"
+    Environment = "dev"
   }
 }
 
 resource "aws_s3_bucket_versioning" "automatt-tf" {
   bucket = aws_s3_bucket.automatt-tf.id
+
   versioning_configuration {
     status = "Enabled"
   }
