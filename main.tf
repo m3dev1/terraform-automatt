@@ -29,3 +29,14 @@ resource "aws_s3_bucket_versioning" "automatt-tf" {
     status = "Enabled"
   }
 }
+
+# AWS Cert Manager
+resource "aws_acm_certificate" "automatt-tf" {
+  domain_name       = var.domain_name
+  validation_method = "DNS"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
