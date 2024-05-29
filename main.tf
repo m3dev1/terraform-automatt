@@ -33,12 +33,39 @@ resource "aws_s3_bucket" "automatt-tf" {
   }
 }
 
+# S3 - Bucket Versioning
 resource "aws_s3_bucket_versioning" "automatt-tf" {
   bucket = aws_s3_bucket.automatt-tf.id
 
   versioning_configuration {
     status = "Enabled"
   }
+}
+
+# S3 - Bucket Policy - Defined from Origin Access Control
+resource "aws_s3_bucket_policy" "automatt-tf_policy" {
+  bucket = aws_s3_bucket.automatt-tf.id
+
+  policy = jsonencode({
+    "Version" : "2008-10-17",
+    "Id" : "PolicyForCloudFrontPrivateContent",
+    "Statement" : [
+      {
+        "Sid" : "AllowCloudFrontServicePrincipal",
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : "cloudfront.amazonaws.com"
+        },
+        "Action" : "s3:GetObject",
+        "Resource" : "${aws_s3_bucket.automatt-tf.arn}/*",
+        "Condition" : {
+          "StringEquals" : {
+            "AWS:SourceArn" : aws_cloudfront_distribution.automatt-tf.arn
+          }
+        }
+      }
+    ]
+  })
 }
 
 # AWS Cert Manager
