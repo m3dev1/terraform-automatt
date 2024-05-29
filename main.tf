@@ -207,3 +207,14 @@ resource "aws_s3_object" "website_files" {
     "svg"  = "image/svg+xml"
   }, split(".", each.value)[length(split(".", each.value)) - 1], "application/octet-stream")
 }
+
+# CloudFlare - AWS Certificate Manager
+resource "cloudflare_record" "cf-aws-cm" {
+  comment = "Required for AWS Cert Manager"
+  name    = var.automatt-dev-acm-name
+  proxied = false
+  ttl     = 1
+  type    = "CNAME"
+  value   = var.automatt-dev-acm-value
+  zone_id = var.zone_id
+}
