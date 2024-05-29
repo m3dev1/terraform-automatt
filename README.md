@@ -2,7 +2,7 @@
 AutoMatt.sh infrastructure created using Infrastructure as Code with Terraform.
 
 ## Introduction
-This project was created to put my Terraform learning into practicce by converting my portfolio website, [AutoMatt.sh](https://automatt.sh) hosted in AWS, to Infrastructure as Code using HashiCorp Terraform.
+This project was created to put my Terraform learning into practice by converting my portfolio website, [AutoMatt.sh](https://automatt.sh) hosted in AWS, to Infrastructure as Code using HashiCorp Terraform.
 
 ### See it live
 - [AutoMatt.dev](https://automatt.dev) - Deployed using Terraform
