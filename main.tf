@@ -105,14 +105,7 @@ resource "aws_cloudfront_distribution" "automatt-tf" {
     domain_name = aws_s3_bucket.automatt-tf.bucket_regional_domain_name
     origin_id   = "S3-${var.bucket_name}"
     origin_path = var.cloudfront_origin_path
-    # origin_access_control_id = aws_cloudfront_origin_access_control.automatt-tf_oac.id
     origin_access_control_id = aws_cloudfront_origin_access_control.automatt-tf_oac.id
-
-    # s3_origin_config {
-    #   #   origin_access_identity = aws_cloudfront_origin_access_identity.automatt-tf.cloudfront_access_identity_path
-    # #   origin_access_identity = aws_cloudfront_origin_access_control.automatt-tf_oac.id
-
-    # }
   }
 
   comment             = "AutoMatt.dev CloudFront Distribution"
@@ -134,13 +127,6 @@ resource "aws_cloudfront_distribution" "automatt-tf" {
 
     allowed_methods = ["GET", "HEAD"]
     cached_methods  = ["GET", "HEAD"]
-
-    # forwarded_values {
-    #   query_string = false
-    #   cookies {
-    #     forward = "none"
-    #   }
-    # }
   }
 
   ordered_cache_behavior {
@@ -150,14 +136,6 @@ resource "aws_cloudfront_distribution" "automatt-tf" {
     cached_methods         = ["GET", "HEAD"]
     target_origin_id       = "S3-${var.bucket_name}"
     cache_policy_id        = "658327ea-f89d-4fab-a63d-7e88639e58f6" # Managed-CachingOptimized
-    # target_origin_id = aws_s3_bucket.automatt-tf.bucket_regional_domain_name
-    # forwarded_values {
-    #   ### TODO - Look into this
-    #   query_string = false
-    #   cookies {
-    #     forward = "none"
-    #   }
-    # }
 
     function_association {
       event_type   = "viewer-request"
