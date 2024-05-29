@@ -42,6 +42,16 @@ resource "aws_s3_bucket_versioning" "automatt-tf" {
   }
 }
 
+# S3 - Bucket ACLs
+resource "aws_s3_bucket_public_access_block" "automatt-tf" {
+  bucket = aws_s3_bucket.automatt-tf.id
+
+  block_public_acls = true
+  block_public_policy = true
+  ignore_public_acls = true
+  restrict_public_buckets = true
+}
+
 # S3 - Bucket Policy - Defined from Origin Access Control
 resource "aws_s3_bucket_policy" "automatt-tf_policy" {
   bucket = aws_s3_bucket.automatt-tf.id
