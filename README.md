@@ -43,5 +43,5 @@ terraform plan
 terraform apply --auto-approve
 ```
 
-> [!warning] Warning
+> [!IMPORTANT] Important
 > The entire process running from scratch will take about 15 minutes or so for everything to come online. This is primarily due to the time that it takes to configure CloudFront and upload the files to S3.
