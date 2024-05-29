@@ -200,3 +200,22 @@ resource "aws_cloudfront_function" "redirect-resume-function" {
     EOF
 }
 
+# S3 - Upload Files
+resource "aws_s3_object" "website_files" {
+  for_each = fileset(var.website_files_path, "**/*")
+  bucket   = aws_s3_bucket.automatt-tf.id
+  key      = "/_site/${each.key}"
+  source   = "${var.website_files_path}/${each.value}"
+  etag     = filemd5("${var.website_files_path}/${each.value}")
+
+  content_type = lookup({
+    "html" = "text/html",
+    "css"  = "text/css",
+    "js"   = "application/javascript",
+    "png"  = "image/png",
+    "jpg"  = "image/jpeg",
+    "jpeg" = "image/jpeg",
+    "gif"  = "image/gif",
+    "svg"  = "image/svg+xml"
+  }, split(".", each.value)[length(split(".", each.value)) - 1], "application/octet-stream")
+}
