@@ -2,7 +2,15 @@
 AutoMatt.sh infrastructure created using Infrastructure as Code with Terraform.
 
 ## Introduction
-This project was created to put my Terraform learning into practicce by converting my portfolio website, [AutoMatt.sh](https://automatt.sh) created using [Eleventy (11ty)](https://11ty.dev) and hosted in AWS, to Infrastructure as Code using HashiCorp Terraform.
+This project was created to put my Terraform learning into practicce by converting my portfolio website, [AutoMatt.sh](https://automatt.sh) hosted in AWS, to Infrastructure as Code using HashiCorp Terraform.
+
+### See it live
+- [AutoMatt.dev](https://automatt.dev) - Deployed using Terraform
+- [Code: AutoMatt.dev](https://github.com/m3dev1/dimension)
+
+### The inspiration
+- [Automatt.sh](https://automatt.sh) - Deployed using GitHub Actions
+- [Code: AutoMatt.sh](https://github.com/m3dev1/terraform-automatt)
 
 ## Features
 - AWS S3
@@ -21,9 +29,9 @@ This project was created to put my Terraform learning into practicce by converti
   - SSL/TLS certificates
 
 ## Prerequisites
-- AWS CLI to run `aws configure`
-- Terraform
-- Static site generated files in `/home/m3/dev/dimension/_site`
+- Static site generated files in `/home/m3/dev/dimension/_site`, or update path in `variables.tf`.
+- AWS CLI to configure AWS credentials using `aws configure`.
+- Terraform to execute the code using `terraform plan` and `terraform apply`.
 
 ## Setup
 ```sh
