@@ -181,3 +181,22 @@ resource "aws_cloudfront_distribution" "automatt-tf" {
     error_caching_min_ttl = 300
   }
 }
+
+# CloudFront Redirect Function
+resource "aws_cloudfront_function" "redirect-resume-function" {
+  name    = "Redirect-Resume-Function"
+  runtime = "cloudfront-js-2.0"
+  publish = true
+
+  code = <<-EOF
+    function handler(event) {
+        var request = event.request;
+        var uri = request.uri;
+        if (uri === '/resume') {
+            request.uri = '/resume.html';
+        }
+        return request;
+        }
+    EOF
+}
+
