@@ -18,6 +18,12 @@ provider "aws" {
   region = var.region
 }
 
+provider "aws" {
+  alias  = "acm_provider"
+  region = "us-east-1"
+}
+
+# S3 - Bucket
 resource "aws_s3_bucket" "automatt-tf" {
   bucket = var.bucket_name
 
@@ -37,8 +43,10 @@ resource "aws_s3_bucket_versioning" "automatt-tf" {
 
 # AWS Cert Manager
 resource "aws_acm_certificate" "automatt-tf" {
-  domain_name       = var.domain_name
-  validation_method = "DNS"
+  provider                  = aws.acm_provider
+  domain_name               = var.domain_name
+  subject_alternative_names = ["*.${var.domain_name}", ]
+  validation_method         = "DNS"
 
   lifecycle {
     create_before_destroy = true
